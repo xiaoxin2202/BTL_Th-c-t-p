@@ -1,31 +1,20 @@
-# Sử dụng hình ảnh Ubuntu 22.04 làm nền
+# Sử dụng image Ubuntu 22.04 làm base
 FROM ubuntu:22.04
 
-# Cài đặt các gói cần thiết
-RUN apt-get update && apt-get install -y \
-    curl \
-    gnupg \
-    && rm -rf /var/lib/apt/lists/*
+# Cài đặt Nginx và các gói cần thiết
+RUN apt-get update && \
+    apt-get install -y nginx && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Cài đặt Node.js từ NodeSource
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y nodejs
+# Sao chép file cấu hình Nginx (nếu cần)
+# COPY ./my-nginx.conf /etc/nginx/nginx.conf
+COPY index.html /var/www/html
 
-# Thiết lập thư mục làm việc
-WORKDIR /usr/src/app
+# Mở cổng 80
+EXPOSE 80
 
-# Sao chép package.json và package-lock.json (nếu có)
-COPY package*.json ./
+# Khởi động Nginx
+CMD ["nginx", "-g", "daemon off;"]
 
-# Cài đặt các phụ thuộc
-RUN npm install
-
-# Sao chép mã nguồn vào container
-COPY . .
-
-# Mở cổng mà ứng dụng sẽ lắng nghe
-EXPOSE 3000
-
-# Lệnh để chạy ứng dụng
-CMD ["node", "server.js"]
-
+COPY index.html /var/www/html
