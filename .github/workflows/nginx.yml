@@ -28,7 +28,7 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "test" ]
 
 env:
   AWS_REGION: ap-northeast-1                   # set this to your preferred AWS region, e.g. us-west-1
@@ -49,13 +49,23 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
 
-    steps:
-    - name: check env
-      run: echo $ECS_TASK_DEFINITION
-      
+    steps:     
     - name: Checkout
       uses: actions/checkout@v4
+      
+    - name: Set up QEMU for arm64
+      run: |
+        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+      if: runner.os == 'Linux'
 
+    - name: Set up Docker for arm64
+      uses: docker/setup-qemu-action@v2
+      with:
+        platforms: linux/arm64
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v3
+        
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -80,14 +90,14 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-    - name: Deploy to ECS
-      uses: imehedi/actions-awscli-v2@latest
-      with:
-        args: ecs update-service --cluster AiVoiceAssistantCluster --service AiVoiceAssistantBackend --force-new-deployment
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: "ap-northeast-1"
+#    - name: Deploy to ECS
+#      uses: imehedi/actions-awscli-v2@latest
+#      with:
+#        args: ecs update-service --cluster AiVoiceAssistantCluster --service AiVoiceAssistantBackend --force-new-deployment
+#      env:
+#        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        AWS_DEFAULT_REGION: "ap-northeast-1"
 
 #    - name: Fill in the new image ID in the Amazon ECS task definition
 #      id: task-def
