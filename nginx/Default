@@ -1,61 +1,36 @@
-upstream samplecluster {
-  # The upstream elements lists all
-  # the backend servers that take part in 
-  # the Nginx load balancer example
-
-  server localhost:8090;
-  server localhost:8080;
-
-}
+# /etc/nginx/sites-available/default
 
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    
+    server_name test-alb-1269094053.ap-northeast-1.elb.amazonaws.com;  # Thay your_domain.com bằng tên miền của bạn
 
-        root /var/www/html;
+    location /node {
+        # Cấu hình reverse proxy cho đường dẫn /node
+        proxy_pass http://backend_server;  # Thay backend_server bằng địa chỉ server backend của bạn
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
 
-        # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html;
+        # Thời gian timeout (tùy chọn)
+        #proxy_read_timeout 90;
+    }
 
-        server_name 54.168.60.227;
-
-        location / {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
-                proxy_pass http://54.168.60.227;
-        }
-
-
-        # The proxy_pass setting will also make the
-        # Nginx load balancer a reverse proxy
-        location /sample {
-                proxy_pass http://samplecluster/sample;
-        }
-        # pass PHP scripts to FastCGI server
-        #
-        #location ~ \.php$ {
-        #       include snippets/fastcgi-php.conf;
-        #
-        #       # With php-fpm (or other unix sockets):
-        #       fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-        #       # With php-cgi (or other tcp sockets):
-        #       fastcgi_pass 127.0.0.1:9000;
-        #}
-
-        # deny access to .htaccess files, if Apache's document root
-        # concurs with nginx's one
-        #
-        #location ~ /\.ht {
-        #       deny all;
-        #}
+    location / {
+        # Trả về file index.html cho tất cả các yêu cầu khác
+        root /var/www/html;  # Thay bằng đường dẫn thực tế đến thư mục chứa file index.html
+        index index.html;
+        try_files $uri $uri/ =404;  # Nếu không tìm thấy, sẽ trả về index.html
+    }
 }
 
 server {
         listen 85;
         listen [::]:85;
 
-        server_name 54.168.60.227;
+        server_name test-alb-1269094053.ap-northeast-1.elb.amazonaws.com;
 
         root /var/www/example.com;
         index index.html;
