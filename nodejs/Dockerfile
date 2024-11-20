@@ -20,7 +20,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Cài đặt các dependencies
-RUN npm install
+RUN apt-get install -y npm
 
 # Sao chép mã nguồn ứng dụng vào container
 COPY . .
