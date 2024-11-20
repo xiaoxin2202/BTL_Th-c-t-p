@@ -6,9 +6,9 @@ RUN apt-get update && \
     apt-get install -y curl gnupg2 lsb-release
 
 # Thêm NodeSource PPA để cài đặt Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y nodejs && \
-    apt-get clean
+#RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+#    apt-get install -y nodejs && \
+#    apt-get clean
 
 # Kiểm tra phiên bản Node.js và npm
 RUN node -v && npm -v
