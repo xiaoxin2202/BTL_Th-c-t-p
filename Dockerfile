@@ -17,4 +17,4 @@ EXPOSE 80
 # Khởi động Nginx
 CMD ["nginx", "-g", "daemon off;"]
 
-COPY index.html /var/www/html
+
