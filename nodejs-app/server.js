@@ -68,6 +68,10 @@ app.use("/graphql", graphqlHTTP({
     graphiql: true,
   })
 );
+// Health check endpoint
+app.get('/', (req, res) => {
+    res.status(200).send('Healthy');
+});
 
 app.get("/rest/getAllUsers", (req, res) => {
     res.send(userData)
