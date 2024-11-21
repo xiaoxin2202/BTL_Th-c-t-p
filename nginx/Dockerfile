@@ -11,6 +11,8 @@ RUN apt-get update && \
 COPY index.html /var/www/html
 COPY Default /etc/nginx/sites-available
 
+RUN cat /etc/nginx/sites-available/Default
+
 # Mở cổng 80
 EXPOSE 80
 EXPOSE 85
