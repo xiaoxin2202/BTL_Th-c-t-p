@@ -23,19 +23,10 @@ jobs:
   deploy:
     name: Deploy nodejs
     runs-on: ubuntu-latest
-#    environment: production
-    strategy:
-      matrix:
-        node-version: [14.x]
         
     steps:     
     - name: Checkout
       uses: actions/checkout@v4
-
-    - name: setup nodejs ${{matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{matrix.node-version }}
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -44,9 +35,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
 
-#    - name: install aws-cli
-#      run: sudo pip install awscli
-#      shell: bash
       
     - name: Login to Amazon ECR
       id: login-ecr
@@ -56,7 +44,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
+        IMAGE_TAG: latest
       run: |
         cd Node
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
