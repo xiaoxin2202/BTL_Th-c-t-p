@@ -3,7 +3,7 @@ name: Deploy to Amazon ECS
 on:
   push:
     paths:
-      - "Node/**"
+      - "nodejs-app/**"
     branches: [ "main" ]
 
 env:
