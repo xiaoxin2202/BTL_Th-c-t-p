@@ -8,7 +8,7 @@ server {
 
     location /node {
         # Cấu hình reverse proxy cho đường dẫn /node
-        proxy_pass alb-nodejs-1223394723.ap-northeast-1.elb.amazonaws.com;  # Thay backend_server bằng địa chỉ server backend của bạn
+        proxy_pass alb-nodejs-1723597904.ap-northeast-1.elb.amazonaws.com;  # Thay backend_server bằng địa chỉ server backend của bạn
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
