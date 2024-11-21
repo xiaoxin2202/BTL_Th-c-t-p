@@ -7,5 +7,5 @@ app.get('/', (req, res)=> {
 });
 
 app.listent(3000, () => {
-  console.log('server is running');
+  console.log('server is nrrning');
 })
