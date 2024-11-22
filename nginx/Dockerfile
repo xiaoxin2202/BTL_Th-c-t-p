@@ -14,7 +14,7 @@ RUN ln -s /etc/nginx/sites-avaiable/Default /etc/nginx/sites-enabled/
 
 RUN cat /etc/nginx/sites-available/Default
 RUN ls /etc/nginx/sites-enabled
-Run cat /etc/nginx/sites-enabled/Default
+RUN cat /etc/nginx/sites-enabled/Default
 # Mở cổng 80
 EXPOSE 80
 EXPOSE 85
