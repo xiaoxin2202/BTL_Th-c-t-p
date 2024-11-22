@@ -10,9 +10,11 @@ RUN apt-get update && \
 # COPY ./my-nginx.conf /etc/nginx/nginx.conf
 COPY index.html /var/www/html
 COPY Default /etc/nginx/sites-available
+RUN ln -s /etc/nginx/sites-avaiable/Default /etc/nginx/sites-enabled/
 
 RUN cat /etc/nginx/sites-available/Default
-
+RUN ls /etc/nginx/sites-enabled
+Run cat /etc/nginx/sites-enabled/Default
 # Mở cổng 80
 EXPOSE 80
 EXPOSE 85
