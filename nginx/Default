@@ -18,7 +18,7 @@ server {
         #proxy_read_timeout 90;
     }
 
-    location / {
+    location /node1 {
         # Trả về file index.html cho tất cả các yêu cầu khác
         root /var/www/html;  # Thay bằng đường dẫn thực tế đến thư mục chứa file index.html
         index index.html;
