@@ -4,7 +4,7 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
     
-    server_name $host;  # Thay your_domain.com bằng tên miền của bạn
+    server_name 54.238.202.219;  # Thay your_domain.com bằng tên miền của bạn
 
     location /node {
         # Cấu hình reverse proxy cho đường dẫn /node
@@ -28,7 +28,7 @@ server {
         listen 85;
         listen [::]:85;
 
-        server_name http://54.238.202.219:80;
+        server_name 54.238.202.219;
 
         root /var/www/example.com;
         index index.html;

@@ -14,7 +14,8 @@ COPY index.html /var/www/html
 
 COPY deploy /etc/nginx/sites-available
 RUN ln -s /etc/nginx/sites-avaiable/deploy /etc/nginx/sites-enabled/
-
+RUN nginx -s reload
+RUN nginx -t
 
 # Mở cổng 80
 EXPOSE 80
@@ -23,9 +24,8 @@ EXPOSE 8080
 EXPOSE 8090
 EXPOSE 3000
 
-RUN systemctl restart nginx.service
 # Khởi động Nginx
-#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
 #FROM public.ecr.aws/nginx/nginx:mainline
 
 #ADD index.html /etc/nginx/html/index.html
