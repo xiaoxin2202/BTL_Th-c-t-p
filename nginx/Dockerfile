@@ -14,7 +14,7 @@ COPY index.html /var/www/html
 
 COPY deploy /etc/nginx/sites-available
 RUN ln -s /etc/nginx/sites-avaiable/deploy /etc/nginx/sites-enabled/
-RUN nginx -s reload
+#RUN nginx -s reload
 RUN nginx -t
 
 # Mở cổng 80
