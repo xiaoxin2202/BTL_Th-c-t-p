@@ -4,7 +4,8 @@ FROM ubuntu:22.04
 # Cài đặt Nginx và các gói cần thiết
 RUN apt-get update && \
     apt-get install -y nginx && \
-    apt-get clean
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Sao chép file cấu hình Nginx (nếu cần)
 #COPY ./my-nginx.conf /etc/nginx/nginx.conf
@@ -22,8 +23,6 @@ COPY default /etc/nginx/sites-available
 
 RUN cat /etc/nginx/sites-available/default
 
-RUN ls -la /etc/nginx/sites-avaiable
-RUN ls -la /etc/nginx/sites-enabled
 # Mở cổng 80
 EXPOSE 80
 EXPOSE 85
