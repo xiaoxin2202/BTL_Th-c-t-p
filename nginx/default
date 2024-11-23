@@ -11,11 +11,6 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
 
     }
-    root /var/www/html;
-    index index.html;
-    location / {
-            try_files $uri $uri/ =404;
-    }
 }
 
 server {
