@@ -9,6 +9,13 @@ RUN apt-get update && \
 # Sao chép file cấu hình Nginx (nếu cần)
 #COPY ./my-nginx.conf /etc/nginx/nginx.conf
 COPY index.html /var/www/html
+RUN ls -la /var/www/html
+RUN ls -la /etc/nginx/sites-available
+RUN ls -la /etc/nginx/sites-enabled
+
+COPY index.html /var/www/html
+RUN ls -la /var/www/html
+
 RUN rm -rf /etc/nginx/sites-available/default
 RUN ls -la /etc/nginx/sites-available
 COPY deploy /etc/nginx/sites-available
