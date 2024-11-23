@@ -24,9 +24,8 @@
 
 # Khởi động Nginx
 #CMD ["nginx", "-g", "daemon off;"]
-FROM nginx
+FROM public.ecr.aws/nginx/nginx:mainline
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /var/www/html
-
+ADD index.html /etc/nginx/html/index.html
+ADD nginx.conf /etc/nginx/nginx.conf
 
