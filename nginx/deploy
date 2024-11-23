@@ -4,7 +4,7 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
     
-    #server_name http://alb-nginx-1883148385.ap-northeast-1.elb.amazonaws.com;  # Thay your_domain.com bằng tên miền của bạn
+    server_name $host;  # Thay your_domain.com bằng tên miền của bạn
 
     location /node {
         # Cấu hình reverse proxy cho đường dẫn /node
@@ -14,8 +14,6 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
-        # Thời gian timeout (tùy chọn)
-        #proxy_read_timeout 90;
     }
 
     location /node1 {
@@ -26,16 +24,16 @@ server {
     }
 }
 
-#server {
-#        listen 85;
-#        listen [::]:85;
+server {
+        listen 85;
+        listen [::]:85;
 
- #       server_name test-alb-1269094053.ap-northeast-1.elb.amazonaws.com;
+        server_name http://54.238.202.219:80;
 
-#        root /var/www/example.com;
-#        index index.html;
+        root /var/www/example.com;
+        index index.html;
 
-#        location / {
-#                try_files $uri $uri/ =404;
-#        }
-#}
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
