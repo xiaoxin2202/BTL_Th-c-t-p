@@ -10,10 +10,16 @@ RUN apt-get update && \
 #COPY ./my-nginx.conf /etc/nginx/nginx.conf
 #COPY index.html /var/www/html
 
-COPY index.html /var/www/html
-COPY deploy /etc/nginx/sites-available
+RUN ls -la /etc/nginx/sites-avaiable
+RUN ls -la /etc/nginx/sites-enabled
+RUN cat /etc/nginx/sites-available/default
 
-RUN ln -s /etc/nginx/sites-avaiable/deploy /etc/nginx/sites-enabled/deploy
+
+COPY index.html /var/www/html
+COPY default /etc/nginx/sites-available
+
+RUN cat /etc/nginx/sites-available/default
+
 RUN ls -la /etc/nginx/sites-avaiable
 RUN ls -la /etc/nginx/sites-enabled
 # Mở cổng 80

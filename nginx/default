@@ -4,7 +4,7 @@ server {
     listen 80;
     location / {
         # Cấu hình reverse proxy cho đường dẫn /node
-        proxy_pass http://172.31.10.227:3000;  # Thay backend_server bằng địa chỉ server backend của bạn
+        proxy_pass http://18.183.251.98:5000;  # Thay backend_server bằng địa chỉ server backend của bạn
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
