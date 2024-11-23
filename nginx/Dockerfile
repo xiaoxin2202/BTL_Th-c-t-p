@@ -11,12 +11,11 @@ RUN apt-get update && \
 #COPY index.html /var/www/html
 
 COPY index.html /var/www/html
-
 COPY deploy /etc/nginx/sites-available
-RUN ln -s /etc/nginx/sites-avaiable/deploy /etc/nginx/sites-enabled/
-#RUN nginx -s reload
-#RUN nginx -t
 
+RUN ln -s /etc/nginx/sites-avaiable/deploy /etc/nginx/sites-enabled/deploy
+RUN ls -la /etc/nginx/sites-avaiable
+RUN ls -la /etc/nginx/sites-enabled
 # Mở cổng 80
 EXPOSE 80
 EXPOSE 85

@@ -1,14 +1,10 @@
 # /etc/nginx/sites-available/default
 
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    
-    server_name 54.238.202.219;  # Thay your_domain.com bằng tên miền của bạn
-
-    location /node {
+    listen 80;
+    location / {
         # Cấu hình reverse proxy cho đường dẫn /node
-        proxy_pass http://54.238.202.219:80;  # Thay backend_server bằng địa chỉ server backend của bạn
+        proxy_pass http://172.31.10.227:3000;  # Thay backend_server bằng địa chỉ server backend của bạn
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -16,24 +12,5 @@ server {
 
     }
 
-    location /node1 {
-        # Trả về file index.html cho tất cả các yêu cầu khác
-        root /var/www/html;  # Thay bằng đường dẫn thực tế đến thư mục chứa file index.html
-        index index.html;
-        try_files $uri $uri/ =404;  # Nếu không tìm thấy, sẽ trả về index.html
-    }
 }
 
-server {
-        listen 85;
-        listen [::]:85;
-
-        server_name 54.238.202.219;
-
-        root /var/www/example.com;
-        index index.html;
-
-        location / {
-                try_files $uri $uri/ =404;
-        }
-}
