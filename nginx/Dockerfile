@@ -2,9 +2,9 @@
 FROM ubuntu:22.04
 
 # Cài đặt Nginx và các gói cần thiết
-#RUN apt-get update && \
-#    apt-get install -y nginx && \
-#    apt-get clean
+RUN apt-get update && \
+    apt-get install -y nginx && \
+    apt-get clean
 
 # Sao chép file cấu hình Nginx (nếu cần)
 #COPY ./my-nginx.conf /etc/nginx/nginx.conf
