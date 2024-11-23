@@ -10,7 +10,9 @@ RUN apt-get update && \
 #COPY ./my-nginx.conf /etc/nginx/nginx.conf
 #COPY index.html /var/www/html
 
-RUN ls -la /etc/nginx/sites-avaiable
+RUN ls -la /etc/nginx/sites-available
+RUN ls -la /etc/nginx/sites-available/
+RUN ls -la /etc/nginx/sites-enabled
 RUN ls -la /etc/nginx/sites-enabled
 RUN cat /etc/nginx/sites-available/default
 
@@ -25,9 +27,7 @@ RUN ls -la /etc/nginx/sites-enabled
 # Mở cổng 80
 EXPOSE 80
 EXPOSE 85
-EXPOSE 8080
-EXPOSE 8090
-EXPOSE 3000
+EXPOSE 5000
 
 # Khởi động Nginx
 CMD ["nginx", "-g", "daemon off;"]
