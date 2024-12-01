@@ -70,7 +70,7 @@ app.use("/graphql", graphqlHTTP({
 );
 // Health check endpoint
 app.get('/', (req, res) => {
-    res.status(200).send('Healthy');
+    res.status(200).send('Healthyyyyyyyyyyyyyyyyyyyyyyyyyyy');
 });
 
 app.get("/rest/getAllUsers", (req, res) => {
