@@ -4,7 +4,7 @@ server {
     listen 80;
     location / {
         # Cấu hình reverse proxy cho đường dẫn /node
-        proxy_pass http://alb-nodejs-1732510526.ap-northeast-1.elb.amazonaws.com;  # Thay backend_server bằng địa chỉ server backend của bạn
+        proxy_pass http://ccc.huytamdepzai.net;  # Thay backend_server bằng địa chỉ server backend của bạn
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
