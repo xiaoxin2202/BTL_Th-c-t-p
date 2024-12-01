@@ -12,12 +12,12 @@ RUN apt-get update && \
 #COPY index.html /var/www/html
 RUN cat /etc/nginx/nginx.conf
 
-COPY nginx.conf /etc/nginx
+#COPY nginx.conf /etc/nginx
 COPY index.html /var/www/html
 COPY default /etc/nginx/sites-available
 
 RUN cat /etc/nginx/sites-available/default
-RUN cat /etc/nginx/nginx.conf
+#RUN cat /etc/nginx/nginx.conf
 # Mở cổng 80
 EXPOSE 80
 EXPOSE 85
